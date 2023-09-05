@@ -34,7 +34,7 @@
     <ul>
         {% for item in order_history %}
         <li>
-            <img src="{{ item.image_path }}" alt="{{ item.name }}">
+            <img src="/{{item.image_path }}" alt="{{ item.name }}">
             <p>Namn: {{ item.name }}</p>
             <p>Pris: {{ item.price }}</p>
             <p>Vikt: {{ item.weight }}</p>
@@ -43,6 +43,6 @@
         {% endfor %}
     </ul>
 </body>
-<script src="index.js"></script>
+<script src="/index.js"></script>
 
 </html>
