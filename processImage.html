@@ -115,7 +115,6 @@
    
    <h1>Produktinformation</h1>
    <div id="product-info">
-    <p><strong>Id:</strong> <span id="id"></span></p>
     <p><strong>Metal Type:</strong> <span id="metal-type"></span></p>
     <p><strong>Name:</strong> <span id="name"></span></p>
     <p><strong>Price:</strong> <span id="price"></span></p>
@@ -136,7 +135,6 @@
     var imageFilename = localStorage.getItem("imageFilename");
 
     // Visa produktinformationen på sidan
-    document.getElementById("id").textContent = productInfo.id;
     document.getElementById("metal-type").textContent = productInfo.metal_type;
     document.getElementById("name").textContent = productInfo.name;
     document.getElementById("price").textContent = productInfo.price;
