@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JEWLLERY-STORE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="cart.css">
+    <script src="cart.js"></script>
+</head>
+
+<body>
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-content" style="max-width:1500px">
+
+        <h1>Kundvagn</h1>
+
+        <!-- Knapp för att gå tillbaka till startsidan -->
+        <button id="back-button" onclick="goToHomePage()"><i class="fa fa-arrow-circle-left"></i> Tillbaka till
+            startsidan</button>
+
+        <div class="product-list">
+            {% for item in ordered_items %}
+            <div class="product-row">
+                <img src="{{ item.image_url }}" alt="{{ item.name }}" class="product-image">
+                <div class="product-info">
+                    <p><strong>Id:</strong> {{item.id}}</p>
+                    <p><strong>Namn:</strong> {{ item.name }}</p>
+                    <p><strong>Pris:</strong> {{ item.price }}</p>
+                    <p><strong>Vikt:</strong> {{ item.weight }}</p>
+                    <p><strong>Metalltyp:</strong> {{ item.metal_type }}</p>
+                </div>
+                <button onclick="removeFromCart('{{ item.id }}','{{ item.image_url}}')">Ta bort</button>
+                
+            </div>
+            {% endfor %}
+        </div>
+            <p class="total-text" >Totalt pris inkl. moms:</p>
+            <p class="total-price">{{ total_price }} sek</p>
+            <button class="checkout-button">Betala</button>
+       
+            <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge"
+                style="margin-top:128px">
+                <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                <i class="fa fa-instagram w3-hover-opacity"></i>
+                <i class="fa fa-snapchat w3-hover-opacity"></i>
+                <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+                <i class="fa fa-twitter w3-hover-opacity"></i>
+                <i class="fa fa-linkedin w3-hover-opacity"></i>
+                <p class="w3-medium">Powered by <a href="" target="_blank" class="w3-hover-text-green">S.J.</a></p>
+            </footer>
+            <script src="index.js"></script>
+           
+      
+           
+</body>
+
+</html>

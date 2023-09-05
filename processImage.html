@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>JEWELRY-STORE</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+      <div class="w3-opacity">
+        <span class="w3-button w3-xxlarge w3-white w3-right"><a href="/cart"><i
+              class="fa fa-shopping-cart w3-hover-opacity" style="color: green;"></i></a></span>
+    </div>
+   
+</head>
+
+<body>
+
+
+  <!-- Placera SVG-elementet med clipPath här -->
+  <svg width="0" height="0">
+    <defs>
+      <clipPath id="heartPath" clipPathUnits="objectBoundingBox">
+        <path d="M0.5,1
+          C 0.5,1,0,0.7,0,0.3
+          A 0.25,0.25,1,1,1,0.5,0.3
+          A 0.25,0.25,1,1,1,1,0.3
+          C 1,0.7,0.5,1,0.5,1 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-content" style="max-width:1500px">
+    <div class="w3-clear"></div>
+    <header class="w3-center w3-margin-bottom">
+      <h1><b>Bildbearbetning</b></h1>
+    </header>
+  </div>
+  <!-- Knapp för att gå tillbaka till startsidan -->
+  <button id="back-button" onclick="goToHomePage()"><i class="fa fa-arrow-circle-left"></i> Tillbaka till
+    startsidan</button>
+
+  <div class="input-container">
+    <label for="rotate-input">&#10112; Välj fil:</label>
+    <!-- Hidden file input that is triggered by the styled "Välj fil" button -->
+    <input type="file" id="upload-image" accept="image/*">
+    <label for="upload-image" id="upload-button"><i class="fa fa-file-picture-o"
+        style="font-size:36px"></i></label><br><br>
+  </div>
+
+  <div class="input-container">
+    <label for="shape-select"> &#10113; Välj form:</label><br><br>
+    <select class="" id="shape-select">
+      <option value="round">Rund</option>
+      <option value="oval">Oval</option>
+      <option value="rectangle">Rektangel</option>
+      <option value="square">Kvadrat</option>
+      <option value="triangle">Triangel</option>
+      <option value="oktogon">Oktogon</option>
+      <option value="hexagon">Hexagon</option>
+      <option value="parallelogram">Parallelogram</option>
+      <option value="heart">Hjärta</option>
+      <option value="rabbet">Rabbet</option>
+      <option value="star">Sjärna</option>
+      <option value="dodicagram">Dodicagram</option>
+    </select>
+    <br>
+    <br>
+  </div>
+
+  <div class="input-container">
+    <label for="rotate-input">&#10114; Rotera (grader):</label><br><br>
+    <input type="number" id="rotate-input" value="0" min="-360" max="360">
+    <br><input type="range" id="rotate-slider" min="-360" max="360" value="0" step="1">
+  </div>
+
+  <div class="input-container">
+    <label for="width-input">&#10115; Bredd:</label><br><br>
+    <input type="number" id="width-input" value="500" min="100" max="5000">
+    <br><input type="range" id="width-slider" min="100" max="5000" value="500" step="10">
+  </div>
+
+  <div class="input-container">
+    <label for="height-input">&#10116; Längd:</label><br><br>
+    <input type="number" id="height-input" value="500" min="100" max="5000">
+    <br><input type="range" id="height-slider" min="100" max="5000" value="500" step="10">
+  </div>
+
+  <div class="input-container">
+    <label for="horizontal-input">&#10117; Horisontell position:</label><br>
+    <input type="number" id="horizontal-input" value="0" min="-250" max="250">
+    <input type="range" id="horizontal-slider" min="-250" max="250" value="0" step="1">
+  </div>
+
+  <div class="input-container">
+    <label for="vertical-input">&#10118; Vertikal position:</label><br><br>
+    <input type="number" id="vertical-input" value="0" min="-250" max="250">
+    <br><input type="range" id="vertical-slider" min="-250" max="250" value="0" step="1">
+  </div>
+
+  <div id="output-image-container">
+    <div class="reference-border-container">
+      <div id="reference-border" class="reference-border">
+        <canvas id="output-image-canvas" width="500" height="500"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-center">
+    <!-- Visa produktinformation 
+    <p id="product-name">{{ product_info.name }}</p>-->
+   
+   <h1>Produktinformation</h1>
+   <div id="product-info">
+    <p><strong>Id:</strong> <span id="id"></span></p>
+    <p><strong>Metal Type:</strong> <span id="metal-type"></span></p>
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>Price:</strong> <span id="price"></span></p>
+    <p><strong>Weight:</strong> <span id="weight"></span></p>
+   </div>
+
+   <script src="processImage.js"></script>
+    <button onclick="saveProcessedImage()">Spara Bearbetad Bild</button>
+    <a id="download-link" style="display: none;" download="processed_image.jpg">Ladda ner bearbetad bild</a>  
+  </div>
+
+  <!-- Lägg till ett data-attribut för att lagra produktinformationen -->
+  <div id="product-info" data-product='{{ product_info|tojson|safe }}'></div>
+  <script>
+    
+    // Hämta produktinformationen och bildfilnamnet från localStorage på processImage.html
+    var productInfo = JSON.parse(localStorage.getItem("productInfo"));
+    var imageFilename = localStorage.getItem("imageFilename");
+
+    // Visa produktinformationen på sidan
+    document.getElementById("id").textContent = productInfo.id;
+    document.getElementById("metal-type").textContent = productInfo.metal_type;
+    document.getElementById("name").textContent = productInfo.name;
+    document.getElementById("price").textContent = productInfo.price;
+    document.getElementById("weight").textContent = productInfo.weight;
+
+
+    // Nu kan du använda productInfo och imageFilename här i din processImage.html-sida
+    console.log("Produktinformation:", productInfo);
+    console.log("Bildfilnamn:", imageFilename);
+
+    // Om du vill använda dessa värden för att göra något på sidan, kan du göra det här.
+</script>
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge" style="margin-top:128px">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <p class="w3-medium">Powered by <a href="" target="_blank" class="w3-hover-text-green">S.J.</a></p>
+  </footer>
+  <script src="script.js"></script>
+  <script src="processimage.js"></script>
+  <!-- Placera script-taggen för att sätta productInfo variabeln -->
+
+</body>
+
+</html>
