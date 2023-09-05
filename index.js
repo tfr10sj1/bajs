@@ -239,7 +239,6 @@ document.addEventListener('DOMContentLoaded', showProducts);
 document.addEventListener('click', async function(event) {
   if (event.target.classList.contains('add-to-cart')) {
     const productInfo = {
-      id: event.target.getAttribute('data-id'),
       name: event.target.getAttribute('data-name'),
       price: event.target.getAttribute('data-price'),
       weight: event.target.getAttribute('data-weight'),
